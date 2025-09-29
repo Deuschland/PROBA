@@ -88,7 +88,7 @@ body {
   padding: 1em;
   border-radius: 12px;
   margin: 0 auto var(--gap);
-  max-width: 700px; /* щоб візуально вирівняти з таблицею */
+  
 }
 
 /* Вертикальна таблиця */
@@ -147,3 +147,4 @@ body {
     transition: none !important;
   }
 }
+
