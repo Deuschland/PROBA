@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1.0.5';
+const CACHE_VERSION = 'v1.0.6';
 const CACHE_NAME = `tarif-cache-${CACHE_VERSION}`;
 const FILES_TO_CACHE = [
   './index.html',
@@ -30,6 +30,12 @@ self.addEventListener('activate', event => {
 // Fetch: network-first для документів, cache-first для статичних ресурсів
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+  // Ігноруємо chrome-extension:// та інші нестандартні схеми
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    return;
+  }
 
   const dest = event.request.destination;
 
@@ -66,8 +72,3 @@ self.addEventListener('fetch', event => {
     )
   );
 });
-
-
-
-
-
