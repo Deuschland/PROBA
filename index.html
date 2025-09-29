@@ -9,18 +9,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icon-192.png" sizes="192x192" type="image/png" />
-  <link rel="icon" href="icon-512.png" sizes="512x512" type="image/png" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png" />
+  <link rel="icon" href="./icon-512.png" sizes="512x512" type="image/png" />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <header>
-    <h1>Tarif Auswahl</h1>
-    <a href="#output" class="skip-link">Перейти до вмісту</a>
-  </header>
-
   <main role="main">
     <div id="reset-container">
       <button id="reset-button" type="button" aria-controls="menu-buttons" aria-label="Скинути вибір">
@@ -31,13 +26,11 @@
     <nav id="menu-buttons" aria-label="Головне меню"></nav>
     <nav id="sub-options" aria-label="Підменю"></nav>
 
-    <section id="output" role="region" aria-label="Деталі" aria-live="polite" tabindex="0">
-      <p class="placeholder">Bitte wählen Sie eine Kategorie…</p>
-    </section>
+    <section id="output" role="region" aria-label="Деталі" aria-live="polite" tabindex="0"></section>
   </main>
 
   <noscript>Цей додаток потребує JavaScript для коректної роботи.</noscript>
 
-  <script type="module" src="script.js" defer></script>
+  <script type="module" src="./script.js" defer></script>
 </body>
 </html>
