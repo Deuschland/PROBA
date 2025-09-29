@@ -1,61 +1,230 @@
-// === Дані та конфігурація ===
-
 // Константи
 const FIELDS = [
-  "Name", "Kostenträger-Nr.", "Kostenträger - Name / Ort",
-  "Von Objekt / Ort", "Nach Objekt / Ort", "Zusatzfeld",
-  "Tarif", "Statistik", "Zusatztext für Rechnung"
+  "Name",
+  "Kostenträger-Nr.",
+  "Kostenträger - Name / Ort",
+  "Von Objekt / Ort",
+  "Nach Objekt / Ort",
+  "Zusatzfeld",
+  "Tarif",
+  "Statistik",
+  "Zusatztext für Rechnung"
 ];
 
-// Конфігурація категорій (повністю, без іконок)
+// Конфігурація категорій
 const CAT_CONFIG = [
   {
     name: "SCHMIEDER KLINIK",
-    overrides: { 1: "3491", 2: "SCHMIEDER KLINIK", 3: "SCHM. GAILINGEN", 4: "SCHM. ALLENSBACH / MRT" },
+    overrides: { 
+      1: "3491",
+      2: "SCHMIEDER KLINIK",
+      3: "SCHM. GAILINGEN",
+      4: "SCHM. ALLENSBACH / MRT"
+    },
     subs: [
-      { label: "3 - Tragestuhl", overrides: { 6: "9211" } },
-      { label: "4 - gehfähig", overrides: { 6: "9111" } },
-      { label: "5 - Rollstuhl", overrides: { 6: "9711" } }
+      { 
+        label: "3 - Tragestuhl", 
+        overrides: { 
+          6: "9211" 
+        } 
+      },
+      { 
+        label: "4 - gehfähig", 
+        overrides: { 
+          6: "9111" 
+        } 
+      },
+      { 
+        label: "5 - Rollstuhl", 
+        overrides: { 
+          6: "9711" 
+        } 
+      }
     ]
   },
-  { name: "PRIVAT", overrides: { 1: "1", 2: "PRIVAT", 3: "WHG", 6: "6600" } },
+  { 
+    name: "PRIVAT", 
+    overrides: { 
+      1: "1",
+      2: "PRIVAT",
+      3: "WHG",
+      6: "6600"
+    } 
+  },
   {
     name: "Hilfeleistung bzw. Tragehilfen/privat",
-    overrides: { 1: "1", 2: "Hilfeleistung bzw. Tragehilfen/privat", 3: "4204", 4: "WHG", 6: "2800", 7: "93", 8: "HOCH HELFEN" }
+    overrides: { 
+      1: "1",
+      2: "Hilfeleistung bzw. Tragehilfen/privat",
+      3: "4204",
+      4: "WHG",
+      6: "2800",
+      7: "93",
+      8: "HOCH HELFEN"
+    }
   },
   {
     name: "HAUSNOTRUF",
-    overrides: { 1: "8", 2: "HAUSNOTRUF", 3: "4204", 4: "WHG", 5: "8", 6: "8609", 7: "89", 8: "HNR NR._ _ _ _ " }
+    overrides: { 
+      1: "8",
+      2: "HAUSNOTRUF",
+      3: "4204",
+      4: "WHG",
+      5: "8",
+      6: "8609",
+      7: "89",
+      8: "HNR NR._ _ _ _ "
+    }
   },
-  { name: "ZFP Reichenau", overrides: { 1: "2775", 2: "ZFP Reichenau", 3: "ZFP ST. 92", 6: "9301" } },
+  { 
+    name: "ZFP Reichenau", 
+    overrides: { 
+      1: "2775",
+      2: "ZFP Reichenau",
+      3: "ZFP ST. 92",
+      6: "9301"
+    } 
+  },
   {
     name: "LEERFAHRT",
-    overrides: { 0: "DIENSTFAHRT", 1: "9", 2: "LEERFAHRT", 3: "4204", 4: "4202 / 4203 / 4205 / 4206", 5: "7", 6: "Kein", 7: "91" }
+    overrides: { 
+      0: "DIENSTFAHRT",
+      1: "9",
+      2: "LEERFAHRT",
+      3: "4204",
+      4: "4202 / 4203 / 4205 / 4206",
+      5: "7",
+      6: "Kein",
+      7: "91"
+    }
   },
   {
     name: "FEHLFAHRT",
-    overrides: { 0: "FEHLFAHRT", 1: "9", 2: "LEERFAHRT", 3: "4204", 5: "6", 6: "Kein", 7: "81" }
+    overrides: { 
+      0: "FEHLFAHRT",
+      1: "9",
+      2: "LEERFAHRT",
+      3: "4204",
+      5: "6",
+      6: "Kein",
+      7: "81"
+    }
   },
   {
     name: "KRANKENHAUS",
     subs: [
-      { label: "KH - KONSTANZ", overrides: { 1: "1203", 2: "KH - KONSTANZ", 3: "ZNA MED KONSTANZ", 4: "ZNA MED SINGEN", 6: "9101", 7: "21" } },
-      { label: "DR. ZWICKER", overrides: { 1: "1203", 2: "KH - KN", 3: "PO3", 4: "ZWICKER", 6: "9101", 7: "23 / 24" } },
-      { label: "KH - SINGEN", overrides: { 1: "3214", 2: "KH - SINGEN", 3: "ZNA MED SINGEN", 4: "ZNA MED KONSTANZ", 6: "9201", 7: "21" } },
-      { label: "KH - STOCKACH", overrides: { 1: "3151", 2: "KH - STOCKACH", 3: "ZNA MED STOCKACH", 4: "ZNA MED KONSTANZ", 6: "9301", 7: "21" } }
+      { 
+        label: "KH - KONSTANZ", 
+        overrides: { 
+          1: "1203",
+          2: "KH - KONSTANZ",
+          3: "ZNA MED KONSTANZ",
+          4: "ZNA MED SINGEN",
+          6: "9101",
+          7: "21"
+        } 
+      },
+      { 
+        label: "DR. ZWICKER", 
+        overrides: { 
+          1: "1203",
+          2: "KH - KN",
+          3: "PO3",
+          4: "ZWICKER",
+          6: "9101",
+          7: "23 / 24"
+        } 
+      },
+      { 
+        label: "KH - SINGEN", 
+        overrides: { 
+          1: "3214",
+          2: "KH - SINGEN",
+          3: "ZNA MED SINGEN",
+          4: "ZNA MED KONSTANZ",
+          6: "9201",
+          7: "21"
+        } 
+      },
+      { 
+        label: "KH - STOCKACH", 
+        overrides: { 
+          1: "3151",
+          2: "KH - STOCKACH",
+          3: "ZNA MED STOCKACH",
+          4: "ZNA MED KONSTANZ",
+          6: "9301",
+          7: "21"
+        } 
+      }
     ]
   },
-  { name: "HEGAU JUGENDWERK", overrides: { 1: "3472", 6: "9201" } },
+  { 
+    name: "HEGAU JUGENDWERK", 
+    overrides: { 
+      1: "3472",
+      6: "9201"
+    } 
+  },
   {
     name: "Tarife für Rollstuhlfahrten",
     subs: [
-      { label: "DAK", overrides: { 1: "600", 2: "DAK", 6: "7611" } },
-      { label: "TK", overrides: { 1: "163", 2: "TK", 6: "7611" } },
-      { label: "BEK", overrides: { 1: "748", 2: "BEK", 6: "7611" } },
-      { label: "KKH", overrides: { 1: "590", 2: "KKH", 6: "7611" } },
-      { label: "hkk", overrides: { 1: "1602", 2: "hkk", 6: "7611" } },
-      { label: "HEK", overrides: { 1: "175", 2: "HEK", 6: "7611" } },
-      { label: "IKK", overrides: { 1: "1770", 2: "IKK", 6: "7621" } }
+      { 
+        label: "DAK", 
+        overrides: { 
+          1: "600",
+          2: "DAK",
+          6: "7611"
+        } 
+      },
+      { 
+        label: "TK", 
+        overrides: { 
+          1: "163",
+          2: "TK",
+          6: "7611"
+        } 
+      },
+      { 
+        label: "BEK", 
+        overrides: { 
+          1: "748",
+          2: "BEK",
+          6: "7611"
+        } 
+      },
+      { 
+        label: "KKH", 
+        overrides: { 
+          1: "590",
+          2: "KKH",
+          6: "7611"
+        } 
+      },
+      { 
+        label: "hkk", 
+        overrides: { 
+          1: "1602",
+          2: "hkk",
+          6: "7611"
+        } 
+      },
+      { 
+        label: "HEK", 
+        overrides: { 
+          1: "175",
+          2: "HEK",
+          6: "7611"
+        } 
+      },
+      { 
+        label: "IKK", 
+        overrides: { 
+          1: "1770",
+          2: "IKK",
+          6: "7621"
+        } 
+      }
     ]
   }
 ];
@@ -93,51 +262,54 @@ function createButton({ text, extraClass="", dataset={}, ariaPressed }) {
 
 // Рендер меню
 function renderMenu() {
-  clear(menuButtons); clear(subOptionsBox); clear(outputBox);
+  clear(menuButtons); 
+  clear(subOptionsBox); 
+  clear(outputBox);
   resetContainer.style.display = "none";
+
   const frag = document.createDocumentFragment();
   Object.keys(categories).forEach(name => {
-    frag.append(createButton({ text: name, dataset:{cat:name}, ariaPressed:false }));
+    frag.append(createButton({ 
+      text: name, 
+      dataset:{cat:name}, 
+      ariaPressed:false 
+    }));
   });
   menuButtons.append(frag);
 }
 
 // Рендер категорії
 function renderCategory(catName) {
-  clear(menuButtons); clear(subOptionsBox); clear(outputBox);
+  clear(menuButtons); 
+  clear(subOptionsBox); 
+  clear(outputBox);
   resetContainer.style.display = "block";
 
-  const frag = document.createDocumentFragment();
-  Object.keys(categories).forEach(name => {
-    frag.append(createButton({
-      text: name,
-      dataset:{cat:name},
-      extraClass: name===catName ? "selected":"",
-      ariaPressed: name===catName
-    }));
-  });
-  menuButtons.append(frag);
-
   const { data, subOptions } = categories[catName];
+
+     // Якщо є підкатегорії → показуємо тільки їх
   if (subOptions) {
-    const frag2 = document.createDocumentFragment();
-    subOptions.forEach((opt,i) => {
-      frag2.append(createButton({
+    const frag = document.createDocumentFragment();
+    subOptions.forEach((opt, i) => {
+      frag.append(createButton({
         text: opt.label,
-        dataset:{cat:catName, sub:i},
-        ariaPressed:false
+        dataset: { cat: catName, sub: i },
+        ariaPressed: false
       }));
     });
-    subOptionsBox.append(frag2);
-  } else {
-    renderTable(data);
+    subOptionsBox.append(frag);
+    return;
   }
+
+  // Якщо підкатегорій немає → показуємо таблицю
+  renderTable(data);
 }
 
 // Рендер таблиці
 function renderTable(entry) {
   clear(outputBox);
   const frag = document.createDocumentFragment();
+
   FIELDS.filter(f => entry[f]?.trim()).forEach(f => {
     const row = document.createElement("div");
     row.className = "row";
@@ -153,13 +325,14 @@ function renderTable(entry) {
     row.append(labelEl, valueEl);
     frag.append(row);
   });
+
   const wrapper = document.createElement("div");
   wrapper.className = "vertical-table";
   wrapper.append(frag);
   outputBox.append(wrapper);
 }
 
-// Класи підсвічування
+// Класи підсвічування для окремих полів
 function getFieldClass(f) {
   if ([FIELDS[1], FIELDS[6]].includes(f)) return "highlight";
   if ([FIELDS[5], FIELDS[7]].includes(f)) return "gros";
@@ -175,25 +348,28 @@ menuButtons.addEventListener("click", e => {
 subOptionsBox.addEventListener("click", e => {
   const btn = e.target.closest("button[data-sub]");
   if (!btn) return;
-  const entry = {
-    ...categories[btn.dataset.cat].data,
-    ...categories[btn.dataset.cat].subOptions[btn.dataset.sub]
-  };
+
+  const { cat, sub } = btn.dataset;
+  const baseData = categories[cat].data;
+  const subData = categories[cat].subOptions[sub];
+  const entry = { ...baseData, ...subData };
+
   clear(subOptionsBox);
   subOptionsBox.append(createButton({
     text: btn.textContent,
     extraClass: "sub-selected",
     ariaPressed: true
   }));
+
   renderTable(entry);
 });
 
 resetBtn.addEventListener("click", renderMenu);
 
-// Ініціалізація
+// Ініціалізація: показати всі категорії
 renderMenu();
 
-// Реєстрація Service Worker (потрібен HTTPS або localhost)
+// Реєстрація Service Worker (опціонально)
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./service-worker.js")
     .catch(err => console.error("SW registration failed:", err));
