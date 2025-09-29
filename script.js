@@ -1,24 +1,24 @@
 // Константи
 const FIELDS = [
-  "Name",                  // [0]
-  "Kostenträger-Nr.",      // [1]
+  "Name",                      // [0]
+  "Kostenträger-Nr.",          // [1]
   "Kostenträger - Name / Ort", // [2]
-  "Von Objekt / Ort",      // [3]
-  "Nach Objekt / Ort",     // [4]
-  "Zusatzfeld",            // [5]
-  "Tarif",                 // [6]
-  "Statistik",             // [7]
-  "Zusatztext für Rechnung"// [8]
+  "Von Objekt / Ort",          // [3]
+  "Nach Objekt / Ort",         // [4]
+  "Zusatzfeld",                // [5]
+  "Tarif",                     // [6]
+  "Statistik",                 // [7]
+  "Zusatztext für Rechnung"    // [8]
 ];
 
 // Конфігурація категорій
 const CAT_CONFIG = [
   {
-    name: "SCHMIEDER KLINIK",
+    name: "SCHMEIDER KLINIK",
     overrides: { 
       0: "",
       1: "3491",
-      2: "SCHMIEDER KLINIK",
+      2: "SCHMEIDER KLINIK",
       3: "SCHM. GAILINGEN",
       4: "SCHM. ALLENSBACH / MRT",
       5: "",
@@ -27,9 +27,24 @@ const CAT_CONFIG = [
       8: ""
     },
     subs: [
-      { label: "3 - Tragestuhl", overrides: { 6: "9211" } },
-      { label: "4 - gehfähig",  overrides: { 6: "9111" } },
-      { label: "5 - Rollstuhl", overrides: { 6: "9711" } }
+      { 
+        label: "3 - Tragestuhl", 
+        overrides: { 
+          6: "9211"
+        } 
+      },
+      { 
+        label: "4 - gehfähig",  
+        overrides: { 
+          6: "9111"
+        } 
+      },
+      { 
+        label: "5 - Rollstuhl", 
+        overrides: { 
+          6: "9711"
+        } 
+      }
     ]
   },
   {
@@ -246,66 +261,71 @@ const CAT_CONFIG = [
 function makeData(overrides = {}) {
   return Object.fromEntries(FIELDS.map((f, i) => [f, overrides[i] ?? ""]));
 }
+
 function makeCategory(cfg) {
-  const cat = { data: makeData(cfg.overrides) };
+  const base = cfg.overrides ?? {};
+  const cat = { data: makeData(base) };
+
   if (Array.isArray(cfg.subs)) {
     cat.subOptions = cfg.subs.map(opt => ({
       label: opt.label,
-      data: makeData({ ...cfg.overrides, ...opt.overrides })
+      data: makeData({ ...base, ...opt.overrides })
     }));
   }
   return cat;
 }
+
 const categories = Object.fromEntries(CAT_CONFIG.map(c => [c.name, makeCategory(c)]));
 
 // DOM
-const menuButtons   = document.getElementById("menu-buttons");
-const subOptionsBox = document.getElementById("sub-options");
-const outputBox     = document.getElementById("output");
-const resetBtn      = document.getElementById("reset-button");
-const resetContainer= document.getElementById("reset-container");
+const menuButtons    = document.getElementById("menu-buttons");
+const subOptionsBox  = document.getElementById("sub-options");
+const outputBox      = document.getElementById("output");
+const resetBtn       = document.getElementById("reset-button");
+const resetContainer = document.getElementById("reset-container");
 
 // Утиліти
 const clear = el => el.replaceChildren();
-function createButton({ text, extraClass="", dataset={}, ariaPressed }) {
+
+function createButton({ text, extraClass = "", dataset = {}, ariaPressed }) {
   const btn = document.createElement("button");
   btn.className = ["icon-button", extraClass].filter(Boolean).join(" ");
   btn.textContent = text;
-  Object.entries(dataset).forEach(([k,v]) => btn.dataset[k] = v);
-  if (ariaPressed !== undefined) {
-    btn.setAttribute("aria-pressed", ariaPressed);
-  }
+  Object.entries(dataset).forEach(([k, v]) => (btn.dataset[k] = v));
+  if (ariaPressed !== undefined) btn.setAttribute("aria-pressed", ariaPressed);
   return btn;
 }
 
 // Рендер меню
 function renderMenu() {
-  clear(menuButtons); 
-  clear(subOptionsBox); 
+  clear(menuButtons);
+  clear(subOptionsBox);
   clear(outputBox);
   resetContainer.style.display = "none";
 
   const frag = document.createDocumentFragment();
   Object.keys(categories).forEach(name => {
-    frag.append(createButton({ 
-      text: name, 
-      dataset: { cat: name }, 
-      ariaPressed: false 
-    }));
+    frag.append(
+      createButton({
+        text: name,
+        dataset: { cat: name },
+        ariaPressed: false
+      })
+    );
   });
   menuButtons.append(frag);
 }
 
 // Рендер категорії
 function renderCategory(catName) {
-  clear(menuButtons); 
-  clear(subOptionsBox); 
+  clear(menuButtons);
+  clear(subOptionsBox);
   clear(outputBox);
   resetContainer.style.display = "block";
 
   const { data, subOptions } = categories[catName];
 
-  // Заголовок категорії
+  // Заголовок категорії (оранжевий блок зверху)
   const headerBtn = createButton({
     text: catName,
     extraClass: "category-selected",
@@ -317,11 +337,13 @@ function renderCategory(catName) {
   if (subOptions) {
     const frag = document.createDocumentFragment();
     subOptions.forEach((opt, i) => {
-      frag.append(createButton({
-        text: opt.label,
-        dataset: { cat: catName, sub: i },
-        ariaPressed: false
-      }));
+      frag.append(
+        createButton({
+          text: opt.label,
+          dataset: { cat: catName, sub: i },
+          ariaPressed: false
+        })
+      );
     });
     subOptionsBox.append(frag);
     return;
@@ -338,7 +360,8 @@ function renderTable(entry) {
 
   const frag = document.createDocumentFragment();
   FIELDS.forEach(f => {
-    if (entry[f] && entry[f].trim() !== "") {
+    const val = entry[f];
+    if (val && String(val).trim() !== "") {
       const row = document.createElement("div");
       row.className = "row";
 
@@ -348,7 +371,7 @@ function renderTable(entry) {
 
       const valueEl = document.createElement("div");
       valueEl.className = `value ${getFieldClass(f)}`;
-      valueEl.textContent = entry[f];
+      valueEl.textContent = val;
 
       row.append(labelEl, valueEl);
       frag.append(row);
@@ -363,8 +386,8 @@ function renderTable(entry) {
 
 // Класи підсвічування
 function getFieldClass(f) {
-  if ([FIELDS[1], FIELDS[6]].includes(f)) return "highlight";
-  if ([FIELDS[5], FIELDS[7]].includes(f)) return "gros";
+  if (f === FIELDS[1] || f === FIELDS[6]) return "highlight";
+  if (f === FIELDS[5] || f === FIELDS[7]) return "gros";
   return "";
 }
 
@@ -382,11 +405,13 @@ subOptionsBox.addEventListener("click", e => {
   const entry = categories[cat].subOptions[sub].data;
 
   clear(subOptionsBox);
-  subOptionsBox.append(createButton({
-    text: btn.textContent,
-    extraClass: "sub-selected",
-    ariaPressed: true
-  }));
+  subOptionsBox.append(
+    createButton({
+      text: btn.textContent,
+      extraClass: "sub-selected",
+      ariaPressed: true
+    })
+  );
 
   renderTable(entry);
 });
