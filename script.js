@@ -287,7 +287,13 @@ function renderCategory(catName) {
 
   const { data, subOptions } = categories[catName];
 
-     // Якщо є підкатегорії → показуємо тільки їх
+    // Заголовок категорії
+  const header = document.createElement("div");
+  header.className = "category-header";
+  header.textContent = catName;
+  outputBox.append(header);
+
+  // Якщо є підкатегорії → показуємо тільки їх
   if (subOptions) {
     const frag = document.createDocumentFragment();
     subOptions.forEach((opt, i) => {
