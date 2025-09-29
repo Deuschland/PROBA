@@ -1,9 +1,5 @@
 // === Дані та конфігурація ===
-const FIELDS = [
-  "Name", "Kostenträger-Nr.", "Kostenträger - Name / Ort",
-  "Von Objekt / Ort", "Nach Objekt / Ort", "Zusatzfeld",
-  "Tarif", "Statistik", "Zusatztext für Rechnung"
-];
+
 // Константи
 const FIELDS = [
   "Name", "Kostenträger-Nr.", "Kostenträger - Name / Ort",
