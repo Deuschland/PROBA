@@ -1,14 +1,14 @@
 // Константи
 const FIELDS = [
-  "Name",
-  "Kostenträger-Nr.",
-  "Kostenträger - Name / Ort",
-  "Von Objekt / Ort",
-  "Nach Objekt / Ort",
-  "Zusatzfeld",
-  "Tarif",
-  "Statistik",
-  "Zusatztext für Rechnung"
+  "Name",                  // [0]
+  "Kostenträger-Nr.",      // [1]
+  "Kostenträger - Name / Ort", // [2]
+  "Von Objekt / Ort",      // [3]
+  "Nach Objekt / Ort",     // [4]
+  "Zusatzfeld",            // [5]
+  "Tarif",                 // [6]
+  "Statistik",             // [7]
+  "Zusatztext für Rechnung"// [8]
 ];
 
 // Конфігурація категорій
@@ -16,48 +16,45 @@ const CAT_CONFIG = [
   {
     name: "SCHMIEDER KLINIK",
     overrides: { 
+      0: "",
       1: "3491",
       2: "SCHMIEDER KLINIK",
       3: "SCHM. GAILINGEN",
-      4: "SCHM. ALLENSBACH / MRT"
+      4: "SCHM. ALLENSBACH / MRT",
+      5: "",
+      6: "",
+      7: "",
+      8: ""
     },
     subs: [
-      { 
-        label: "3 - Tragestuhl", 
-        overrides: { 
-          6: "9211" 
-        } 
-      },
-      { 
-        label: "4 - gehfähig", 
-        overrides: { 
-          6: "9111" 
-        } 
-      },
-      { 
-        label: "5 - Rollstuhl", 
-        overrides: { 
-          6: "9711" 
-        } 
-      }
+      { label: "3 - Tragestuhl", overrides: { 6: "9211" } },
+      { label: "4 - gehfähig",  overrides: { 6: "9111" } },
+      { label: "5 - Rollstuhl", overrides: { 6: "9711" } }
     ]
   },
-  { 
-    name: "PRIVAT", 
+  {
+    name: "PRIVAT",
     overrides: { 
+      0: "",
       1: "1",
       2: "PRIVAT",
       3: "WHG",
-      6: "6600"
-    } 
+      4: "",
+      5: "",
+      6: "6600",
+      7: "",
+      8: ""
+    }
   },
   {
     name: "Hilfeleistung bzw. Tragehilfen/privat",
     overrides: { 
+      0: "",
       1: "1",
       2: "Hilfeleistung bzw. Tragehilfen/privat",
       3: "4204",
       4: "WHG",
+      5: "",
       6: "2800",
       7: "93",
       8: "HOCH HELFEN"
@@ -66,6 +63,7 @@ const CAT_CONFIG = [
   {
     name: "HAUSNOTRUF",
     overrides: { 
+      0: "",
       1: "8",
       2: "HAUSNOTRUF",
       3: "4204",
@@ -76,14 +74,19 @@ const CAT_CONFIG = [
       8: "HNR NR._ _ _ _ "
     }
   },
-  { 
-    name: "ZFP Reichenau", 
+  {
+    name: "ZFP Reichenau",
     overrides: { 
+      0: "",
       1: "2775",
       2: "ZFP Reichenau",
       3: "ZFP ST. 92",
-      6: "9301"
-    } 
+      4: "",
+      5: "",
+      6: "9301",
+      7: "",
+      8: ""
+    }
   },
   {
     name: "LEERFAHRT",
@@ -95,7 +98,8 @@ const CAT_CONFIG = [
       4: "4202 / 4203 / 4205 / 4206",
       5: "7",
       6: "Kein",
-      7: "91"
+      7: "91",
+      8: ""
     }
   },
   {
@@ -105,9 +109,11 @@ const CAT_CONFIG = [
       1: "9",
       2: "LEERFAHRT",
       3: "4204",
+      4: "",
       5: "6",
       6: "Kein",
-      7: "81"
+      7: "81",
+      8: ""
     }
   },
   {
@@ -125,7 +131,7 @@ const CAT_CONFIG = [
         } 
       },
       { 
-        label: "DR. ZWICKER", 
+        label: "DR. ZWICKER",  
         overrides: { 
           1: "1203",
           2: "KH - KN",
@@ -136,7 +142,7 @@ const CAT_CONFIG = [
         } 
       },
       { 
-        label: "KH - SINGEN", 
+        label: "KH - SINGEN",  
         overrides: { 
           1: "3214",
           2: "KH - SINGEN",
@@ -147,7 +153,7 @@ const CAT_CONFIG = [
         } 
       },
       { 
-        label: "KH - STOCKACH", 
+        label: "KH - STOCKACH",
         overrides: { 
           1: "3151",
           2: "KH - STOCKACH",
@@ -159,12 +165,19 @@ const CAT_CONFIG = [
       }
     ]
   },
-  { 
-    name: "HEGAU JUGENDWERK", 
+  {
+    name: "HEGAU JUGENDWERK",
     overrides: { 
+      0: "",
       1: "3472",
-      6: "9201"
-    } 
+      2: "",
+      3: "",
+      4: "",
+      5: "",
+      6: "9201",
+      7: "",
+      8: ""
+    }
   },
   {
     name: "Tarife für Rollstuhlfahrten",
@@ -178,7 +191,7 @@ const CAT_CONFIG = [
         } 
       },
       { 
-        label: "TK", 
+        label: "TK",  
         overrides: { 
           1: "163",
           2: "TK",
@@ -229,14 +242,17 @@ const CAT_CONFIG = [
   }
 ];
 
-// Генерація даних
+// Генерація повного об’єкта даних
 function makeData(overrides = {}) {
   return Object.fromEntries(FIELDS.map((f, i) => [f, overrides[i] ?? ""]));
 }
 function makeCategory(cfg) {
   const cat = { data: makeData(cfg.overrides) };
   if (Array.isArray(cfg.subs)) {
-    cat.subOptions = cfg.subs.map(opt => ({ label: opt.label, ...makeData(opt.overrides) }));
+    cat.subOptions = cfg.subs.map(opt => ({
+      label: opt.label,
+      data: makeData({ ...cfg.overrides, ...opt.overrides })
+    }));
   }
   return cat;
 }
@@ -256,7 +272,9 @@ function createButton({ text, extraClass="", dataset={}, ariaPressed }) {
   btn.className = ["icon-button", extraClass].filter(Boolean).join(" ");
   btn.textContent = text;
   Object.entries(dataset).forEach(([k,v]) => btn.dataset[k] = v);
-  if (ariaPressed !== undefined) btn.setAttribute("aria-pressed", ariaPressed);
+  if (ariaPressed !== undefined) {
+    btn.setAttribute("aria-pressed", ariaPressed);
+  }
   return btn;
 }
 
@@ -271,8 +289,8 @@ function renderMenu() {
   Object.keys(categories).forEach(name => {
     frag.append(createButton({ 
       text: name, 
-      dataset:{cat:name}, 
-      ariaPressed:false 
+      dataset: { cat: name }, 
+      ariaPressed: false 
     }));
   });
   menuButtons.append(frag);
@@ -288,12 +306,14 @@ function renderCategory(catName) {
   const { data, subOptions } = categories[catName];
 
   // Заголовок категорії
-  const header = document.createElement("div");
-  header.className = "category-header";
-  header.textContent = catName;
-  outputBox.append(header);
+  const headerBtn = createButton({
+    text: catName,
+    extraClass: "category-selected",
+    ariaPressed: true
+  });
+  outputBox.append(headerBtn);
 
-  // Якщо є підкатегорії → показуємо тільки їх
+  // Якщо є підкатегорії → показуємо їх
   if (subOptions) {
     const frag = document.createDocumentFragment();
     subOptions.forEach((opt, i) => {
@@ -313,26 +333,26 @@ function renderCategory(catName) {
 
 // Рендер таблиці
 function renderTable(entry) {
-  // Видаляємо стару таблицю, але залишаємо заголовок
   const oldTable = outputBox.querySelector(".vertical-table");
   if (oldTable) oldTable.remove();
 
   const frag = document.createDocumentFragment();
+  FIELDS.forEach(f => {
+    if (entry[f] && entry[f].trim() !== "") {
+      const row = document.createElement("div");
+      row.className = "row";
 
-  FIELDS.filter(f => entry[f]?.trim()).forEach(f => {
-    const row = document.createElement("div");
-    row.className = "row";
+      const labelEl = document.createElement("div");
+      labelEl.className = "label";
+      labelEl.textContent = f;
 
-    const labelEl = document.createElement("div");
-    labelEl.className = "label";
-    labelEl.textContent = f;
+      const valueEl = document.createElement("div");
+      valueEl.className = `value ${getFieldClass(f)}`;
+      valueEl.textContent = entry[f];
 
-    const valueEl = document.createElement("div");
-    valueEl.className = `value ${getFieldClass(f)}`;
-    valueEl.textContent = entry[f];
-
-    row.append(labelEl, valueEl);
-    frag.append(row);
+      row.append(labelEl, valueEl);
+      frag.append(row);
+    }
   });
 
   const wrapper = document.createElement("div");
@@ -341,7 +361,7 @@ function renderTable(entry) {
   outputBox.append(wrapper);
 }
 
-// Класи підсвічування для окремих полів
+// Класи підсвічування
 function getFieldClass(f) {
   if ([FIELDS[1], FIELDS[6]].includes(f)) return "highlight";
   if ([FIELDS[5], FIELDS[7]].includes(f)) return "gros";
@@ -359,9 +379,7 @@ subOptionsBox.addEventListener("click", e => {
   if (!btn) return;
 
   const { cat, sub } = btn.dataset;
-  const baseData = categories[cat].data;
-  const subData = categories[cat].subOptions[sub];
-  const entry = { ...baseData, ...subData };
+  const entry = categories[cat].subOptions[sub].data;
 
   clear(subOptionsBox);
   subOptionsBox.append(createButton({
@@ -375,11 +393,5 @@ subOptionsBox.addEventListener("click", e => {
 
 resetBtn.addEventListener("click", renderMenu);
 
-// Ініціалізація: показати всі категорії
+// Ініціалізація
 renderMenu();
-
-// Реєстрація Service Worker (опціонально)
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./service-worker.js")
-    .catch(err => console.error("SW registration failed:", err));
-}
