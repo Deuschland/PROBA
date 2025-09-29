@@ -278,6 +278,7 @@ function makeCategory(cfg) {
 const categories = Object.fromEntries(CAT_CONFIG.map(c => [c.name, makeCategory(c)]));
 
 // DOM
+const categoryHeader = document.getElementById("category-header");
 const menuButtons    = document.getElementById("menu-buttons");
 const subOptionsBox  = document.getElementById("sub-options");
 const outputBox      = document.getElementById("output");
@@ -293,11 +294,12 @@ function createButton({ text, extraClass = "", dataset = {}, ariaPressed }) {
   btn.textContent = text;
   Object.entries(dataset).forEach(([k, v]) => (btn.dataset[k] = v));
   if (ariaPressed !== undefined) btn.setAttribute("aria-pressed", ariaPressed);
-    return btn;
+  return btn;
 }
 
 // Рендер меню
 function renderMenu() {
+  clear(categoryHeader);
   clear(menuButtons);
   clear(subOptionsBox);
   clear(outputBox);
@@ -325,13 +327,14 @@ function renderCategory(catName) {
 
   const { data, subOptions } = categories[catName];
 
-  // Заголовок категорії (оранжевий блок зверху)
+  // Вибрана категорія у верхньому контейнері
+  clear(categoryHeader);
   const headerBtn = createButton({
     text: catName,
     extraClass: "category-selected",
     ariaPressed: true
   });
-  outputBox.prepend(headerBtn);
+  categoryHeader.append(headerBtn);
 
   // Якщо є підкатегорії → показуємо їх
   if (subOptions) {
