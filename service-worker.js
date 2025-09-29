@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
 const CACHE_NAME = `tarif-cache-${CACHE_VERSION}`;
 const FILES_TO_CACHE = [
   './index.html',
@@ -66,3 +66,4 @@ self.addEventListener('fetch', event => {
     )
   );
 });
+
