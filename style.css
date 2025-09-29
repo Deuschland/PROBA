@@ -77,6 +77,20 @@ body {
 #sub-options .icon-button { background-color: var(--color-primary-hover); }
 #sub-options .icon-button.sub-selected { background-color: var(--color-sub-selected); }
 
+/* Активна категорія: оранжевий блок зверху */
+.category-selected {
+  display: block;
+  width: 100%;
+  background-color: var(--color-selected);
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+  padding: 1em;
+  border-radius: 12px;
+  margin: 0 auto var(--gap);
+  max-width: 700px; /* щоб візуально вирівняти з таблицею */
+}
+
 /* Вертикальна таблиця */
 .vertical-table {
   font-size: 1.1em;
