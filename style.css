@@ -1,0 +1,135 @@
+:root {
+  --color-bg: #fdfdfd;
+  --color-text: #333;
+  --color-primary: #005fa3;
+  --color-primary-hover: #0077cc;
+  --color-selected: #ff9800;
+  --color-sub-selected: #f48fb1;
+  --color-highlight: #e91e63;
+  --color-gros: #005fa3;
+  --color-reset: #4CAF50;
+  --color-reset-hover: #45a049;
+  --gap: 12px;
+}
+
+/* Базове оформлення та системний шрифт для енергоефективності */
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  text-align: center;
+}
+
+/* Доступність: skip-link */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: .5em;
+  background: var(--color-primary);
+  color: #fff;
+  z-index: 1000;
+}
+
+/* Контейнер меню */
+#menu-buttons,
+#sub-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding: 10px;
+}
+
+/* Кнопки */
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 600;
+  padding: 1em;
+  border-radius: 12px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.1); /* легше для GPU ніж тіні */
+  transition: transform 0.15s ease, background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.icon-button:hover { transform: translateY(-2px); }
+.icon-button:active { transform: scale(0.98); }
+
+.icon-button.selected { background-color: var(--color-selected); }
+.icon-button.sub-selected { background-color: var(--color-sub-selected); color: #fff; }
+
+#sub-options .icon-button { background-color: var(--color-primary-hover); }
+#sub-options .icon-button.sub-selected { background-color: var(--color-sub-selected); }
+
+/* Вертикальна таблиця */
+.vertical-table {
+  font-size: 1.1em;
+  margin: 0 auto 30px;
+  max-width: 500px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+}
+
+.label { font-weight: bold; color: #000; }
+.value { font-weight: bold; color: var(--color-primary-hover); text-align: right; }
+.value.highlight { font-size: 1.4em; color: var(--color-highlight); }
+.value.gros { font-size: 1.4em; color: var(--color-gros); }
+
+/* Кнопка скидання */
+#reset-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: none;
+}
+
+#reset-button {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  width: calc(100vw - 40px);
+  justify-content: center;
+  background-color: var(--color-reset);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+#reset-button:hover { background-color: var(--color-reset-hover); transform: scale(1.02); }
+#reset-button:active { transform: scale(0.95); }
+
+/* Зменшення руху для енергозбереження */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
