@@ -287,7 +287,7 @@ function renderCategory(catName) {
 
   const { data, subOptions } = categories[catName];
 
-    // Заголовок категорії
+  // Заголовок категорії
   const header = document.createElement("div");
   header.className = "category-header";
   header.textContent = catName;
@@ -313,7 +313,10 @@ function renderCategory(catName) {
 
 // Рендер таблиці
 function renderTable(entry) {
-  clear(outputBox);
+  // Видаляємо стару таблицю, але залишаємо заголовок
+  const oldTable = outputBox.querySelector(".vertical-table");
+  if (oldTable) oldTable.remove();
+
   const frag = document.createDocumentFragment();
 
   FIELDS.filter(f => entry[f]?.trim()).forEach(f => {
