@@ -17,16 +17,24 @@
 </head>
 <body>
   <main role="main">
+    <!-- Контейнер для вибраної категорії -->
+    <div id="category-header" aria-label="Вибрана категорія"></div>
+
+    <!-- Меню категорій -->
+    <nav id="menu-buttons" aria-label="Головне меню"></nav>
+
+    <!-- Підкатегорії -->
+    <nav id="sub-options" aria-label="Підменю"></nav>
+
+    <!-- Вивід таблиці -->
+    <section id="output" role="region" aria-label="Деталі" aria-live="polite" tabindex="0"></section>
+
+    <!-- Кнопка Zurück -->
     <div id="reset-container">
       <button id="reset-button" type="button" aria-controls="menu-buttons" aria-label="Скинути вибір">
         ZURÜCK
       </button>
     </div>
-
-    <nav id="menu-buttons" aria-label="Головне меню"></nav>
-    <nav id="sub-options" aria-label="Підменю"></nav>
-
-    <section id="output" role="region" aria-label="Деталі" aria-live="polite" tabindex="0"></section>
   </main>
 
   <noscript>Цей додаток потребує JavaScript для коректної роботи.</noscript>
@@ -34,4 +42,3 @@
   <script type="module" src="./script.js" defer></script>
 </body>
 </html>
-
