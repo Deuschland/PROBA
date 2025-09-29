@@ -168,7 +168,7 @@ const CAT_CONFIG = [
         } 
       },
       { 
-        label: "KH - STOCKACH",
+        label: "KH - STOCKACH", 
         overrides: { 
           1: "3151",
           2: "KH - STOCKACH",
@@ -293,7 +293,7 @@ function createButton({ text, extraClass = "", dataset = {}, ariaPressed }) {
   btn.textContent = text;
   Object.entries(dataset).forEach(([k, v]) => (btn.dataset[k] = v));
   if (ariaPressed !== undefined) btn.setAttribute("aria-pressed", ariaPressed);
-  return btn;
+    return btn;
 }
 
 // Рендер меню
@@ -331,7 +331,7 @@ function renderCategory(catName) {
     extraClass: "category-selected",
     ariaPressed: true
   });
-  outputBox.append(headerBtn);
+  outputBox.prepend(headerBtn);
 
   // Якщо є підкатегорії → показуємо їх
   if (subOptions) {
